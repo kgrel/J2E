@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -27,6 +28,19 @@ public class HelloServlet extends HttpServlet{
 	throws ServletException, IOException {
 		// writer to the response
 		final PrintWriter writer = resp.getWriter();
+		
+		writer.write("Session id");
+		writer.write(" : ");
+		
+		// get session from request, don't create if doesn't exist
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			writer.write("Session does not exist");
+		}
+		else {
+			writer.write(session.getId());
+		}
+		writer.write('\n');
 		
 		// enumeration of all header names in request
 		Enumeration<String> headerEnum = req.getHeaderNames();
