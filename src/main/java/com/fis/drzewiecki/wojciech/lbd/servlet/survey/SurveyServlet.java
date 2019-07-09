@@ -22,10 +22,14 @@ public class SurveyServlet extends HttpServlet {
 	private ServletContext context;
 	
 	private final String listAttributeName = "surveyList";
+	private final String listCounterName = "listCounter";
 	
 	@Override
 	public void init() throws ServletException{
 		context.setAttribute(listAttributeName, new ArrayList<Survey>());
+		
+		// Add Counter
+		context.setAttribute(listCounterName, Integer.valueOf(0));
 	}
 
 	@Override
@@ -45,10 +49,14 @@ public class SurveyServlet extends HttpServlet {
 		// add survey to list of surveys in context
 		List<Survey> surveyList = (List<Survey>)context.getAttribute(listAttributeName);
 		surveyList.add(s);
-		//overwrite?
+		
+		// increment counter
+		Integer counter = (Integer)context.getAttribute(listCounterName);
+		context.setAttribute(listCounterName, ++counter);
 		
 		// send string as response
 		resp.getWriter().append(s.toString());
+		resp.getWriter().append("Counter: " + counter);
 		resp.getWriter().flush();
 		resp.getWriter().close();
 	}
