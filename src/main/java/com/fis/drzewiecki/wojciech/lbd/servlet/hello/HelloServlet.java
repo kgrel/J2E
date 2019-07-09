@@ -1,6 +1,8 @@
 package com.fis.drzewiecki.wojciech.lbd.servlet.hello;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -23,12 +25,29 @@ public class HelloServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 	throws ServletException, IOException {
+		// writer to the response
+		final PrintWriter writer = resp.getWriter();
 		
-		// Set status code to 200(ok) and send message from field 
+		// enumeration of all header names in request
+		Enumeration<String> headerEnum = req.getHeaderNames();
+		
+		// until there are headers in request
+		while(headerEnum.hasMoreElements()) {
+			
+			String headerName = headerEnum.nextElement();
+			
+			// write header to response body
+			writer.write(headerName);
+			writer.write(" : ");
+			writer.write(req.getHeader(headerName));
+			writer.write('\n');
+		}
+		
+		writer.flush();
+		writer.close();
+		
+		// Set status code to 200(ok)
 		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.getWriter().write(message);
-		resp.getWriter().flush();
-		resp.getWriter().close();
 		
 	}
 }
