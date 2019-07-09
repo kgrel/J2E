@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fis.drzewiecki.wojciech.lbd.model.survey.StudyDegree;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
+import com.fis.drzewiecki.wojciech.lbd.servlet.commons.Constants;
 
 @WebServlet("surveys")
 public class SurveyServlet extends HttpServlet {
@@ -21,15 +22,13 @@ public class SurveyServlet extends HttpServlet {
 	@Inject
 	private ServletContext context;
 	
-	private final String listAttributeName = "surveyList";
-	private final String listCounterName = "listCounter";
-	
+
 	@Override
 	public void init() throws ServletException{
-		context.setAttribute(listAttributeName, new ArrayList<Survey>());
+		context.setAttribute(Constants.listAttributeName, new ArrayList<Survey>());
 		
 		// Add Counter
-		context.setAttribute(listCounterName, Integer.valueOf(0));
+		context.setAttribute(Constants.listCounterName, Integer.valueOf(0));
 	}
 
 	@Override
@@ -47,12 +46,12 @@ public class SurveyServlet extends HttpServlet {
 		Survey s = fromAttributesToSurvey(req);
 		
 		// add survey to list of surveys in context
-		List<Survey> surveyList = (List<Survey>)context.getAttribute(listAttributeName);
+		List<Survey> surveyList = (List<Survey>)context.getAttribute(Constants.listAttributeName);
 		surveyList.add(s);
 		
 		// increment counter
-		Integer counter = (Integer)context.getAttribute(listCounterName);
-		context.setAttribute(listCounterName, ++counter);
+		Integer counter = (Integer)context.getAttribute(Constants.listCounterName);
+		context.setAttribute(Constants.listCounterName, ++counter);
 		
 		// send string as response
 		resp.getWriter().append(s.toString());
