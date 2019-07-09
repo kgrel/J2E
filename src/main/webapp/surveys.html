@@ -1,0 +1,19 @@
+<html>
+<body>
+  <form name="survey" action="surveys" method="post">
+    Name: <input type="text" name="name"/><br>
+    Surname: <input type="text" name="surname"/><br>
+    Uni: <input type="text" name="uni"/><br>
+    Faculty: <input type="text" name="faculty"/><br>
+    Year of study: <input type="number" min="1" max="5" step="1" name="year"/><br>
+    Study degree: <select multiple name="degree">
+                      <option value="bachelor">Bachelor</option>
+                      <option value="master">Master</option>
+                  </select><br>
+    Quality of courses and teaching: <input type="number" min="1" max="10" step="1" name="quality"/><br>
+    Contact: <input type="number" min="1" max="10" step="1" name="contact"/><br>
+    Inclusion: <input type="number" min="1" max="10" step="1" name="inclusion"/><br>
+    <input type="submit" value="Submit"/>
+  </form>
+</body>
+</html>
