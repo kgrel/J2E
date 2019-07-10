@@ -1,11 +1,8 @@
 package com.fis.drzewiecki.wojciech.lbd.servlet.averagestatistics;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
-import com.fis.drzewiecki.wojciech.lbd.model.survey.course.Course;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics.SurveysAverageStatistics;
 import com.fis.drzewiecki.wojciech.lbd.service.surveys.statistics.SurveysStatisticsService;
 import com.fis.drzewiecki.wojciech.lbd.servlet.commons.Constants;
@@ -43,6 +39,11 @@ public class AverageStatisticsServlet extends HttpServlet{
 						(List<Survey>)context.getAttribute(Constants.listAttributeName)
 						);
 		
+		// sort by overall average of uni
+		
+		
+		resp.setContentType("text/html charset=utf-8");
+		
 		resp.getWriter().append(universitiesStatistics(uniStatistics));
 		
 		resp.getWriter().flush();
@@ -54,21 +55,23 @@ public class AverageStatisticsServlet extends HttpServlet{
 		
 		for(Map.Entry<String, SurveysAverageStatistics> entry : uniStatistics.entrySet()) {
 			sb.append(entry.getKey());
-			sb.append(":\n");
+			sb.append(":<br>");
 			sb.append("Average quality vote: ");
 			sb.append(entry.getValue().getAverageQualityVote());
-			sb.append('\n');
+			sb.append("<br>");
 			
 			sb.append("Average contact vote: ");
 			sb.append(entry.getValue().getAverageContactVote());
-			sb.append('\n');
+			sb.append("<br>");
 			
 			sb.append("Average inclusion vote: ");
 			sb.append(entry.getValue().getAverageInclusionVote());
-			sb.append('\n');
+			sb.append("<br>");
 			
-			sb.append('\n');
+			sb.append("<br>");
 		}
+		
+		sb.append("<a target='_blank' href='/lbd/average-statistics/download'>Download CSV</a>");
 		
 		return sb.toString();
 	}

@@ -3,7 +3,7 @@ package com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
 
 // Class that calculates average statistics of surveys passed in 'on the go'
-public class SurveysAverageStatistics {
+public class SurveysAverageStatistics implements Comparable<SurveysAverageStatistics> {
 	private Double averageQualityVote;
 	private Double averageContactVote;
 	private Double averageInclusionVote;
@@ -29,6 +29,10 @@ public class SurveysAverageStatistics {
 	public Double getAverageInclusionVote() {
 		return averageInclusionVote;
 	}
+	
+	public Double getOverallAverage() {
+		return (averageContactVote + averageInclusionVote + averageQualityVote) / 3;
+	}
 
 	public void addSurvey(Survey s) {
 		// Calculate new average for previous average and new survey
@@ -38,6 +42,11 @@ public class SurveysAverageStatistics {
 		
 		// new survey added
 		surveysCount++;
+	}
+
+	@Override
+	public int compareTo(SurveysAverageStatistics o) {
+		return -this.getOverallAverage().compareTo(o.getOverallAverage());
 	}
 	
 }
