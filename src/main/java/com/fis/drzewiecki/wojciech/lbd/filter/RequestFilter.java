@@ -47,6 +47,11 @@ public class RequestFilter implements Filter {
 		long end = System.nanoTime();
 		
 		logger.info("elapsed request processing time: " + (end-start) + "ns");
+		
+		HttpServletResponse res = (HttpServletResponse)response;
+		
+		String responseContent = res.getHeader("Content-Type");
+		logger.info("Response content-type: " + responseContent);
 	}
 
 }
