@@ -1,19 +1,19 @@
 package com.fis.drzewiecki.wojciech.lbd.model.survey;
 
+import com.fis.drzewiecki.wojciech.lbd.model.survey.course.Course;
+
 public class Survey {
 	private String name;
 	private String surname;
-	private String universityName;
-	private String facultyName;
-	private StudyDegree studyDegree;
+	private Course course;
 	private Integer yearOfStudy;
 	private Integer qualityVote;
 	private Integer contactVote;
-	private Integer InclusionVote;
+	private Integer inclusionVote;
 	
 	
 	public Survey() {
-		
+		this.course = new Course();
 	}
 	
 	@Override
@@ -52,10 +52,10 @@ public class Survey {
 	}
 	
 	public Integer getInclusionVote() {
-		return InclusionVote;
+		return inclusionVote;
 	}
 	public void setInclusionVote(Integer inclusionVote) {
-		InclusionVote = inclusionVote;
+		this.inclusionVote = inclusionVote;
 	}
 	public String getName() {
 		return name;
@@ -70,16 +70,16 @@ public class Survey {
 		this.surname = surname;
 	}
 	public String getUniversityName() {
-		return universityName;
+		return this.course.getUniversityName();
 	}
 	public void setUniversityName(String universityName) {
-		this.universityName = universityName;
+		this.course.setUniversityName(universityName);
 	}
 	public String getFacultyName() {
-		return facultyName;
+		return this.course.getFacultyName();
 	}
 	public void setFacultyName(String facultyName) {
-		this.facultyName = facultyName;
+		this.course.setFacultyName(facultyName);
 	}
 	public Integer getYearOfStudy() {
 		return yearOfStudy;
@@ -100,10 +100,15 @@ public class Survey {
 		this.contactVote = contactVote;
 	}
 	public StudyDegree getStudyDegree() {
-		return studyDegree;
+		return this.course.getStudyDegree();
 	}
 	public void setStudyDegree(StudyDegree studyDegree) {
-		this.studyDegree = studyDegree;
+		this.course.setStudyDegree(studyDegree);
 	}
-	
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 }
