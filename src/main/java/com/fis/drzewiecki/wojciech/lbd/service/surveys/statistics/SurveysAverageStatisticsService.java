@@ -11,14 +11,18 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
+import com.fis.drzewiecki.wojciech.lbd.model.survey.calculators.Average;
+import com.fis.drzewiecki.wojciech.lbd.model.survey.calculators.SurveyAverageCalculator;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.calculators.SurveyCalculator;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics.SurveysAverageStatistics;
+import com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics.SurveysStatistics;
 
 @Stateless 
 @Local
-public class SurveysStatisticsService {
+public class SurveysAverageStatisticsService {
 	
 	@Inject
+	@Average
 	private SurveyCalculator surveyCalculator;
 	
 	// get average statistics for every university
@@ -42,7 +46,7 @@ public class SurveysStatisticsService {
 		
 		// calculate statistics and put to map
 		uniSurveysMap.entrySet().forEach(e -> 
-			uniStatisticsMap.put(e.getKey(), surveyCalculator.calculateAverageStatistics(e.getValue()))
+			uniStatisticsMap.put(e.getKey(), (SurveysAverageStatistics)(surveyCalculator.calculateStatistic(e.getValue())))
 		);
 		
 		return sortByValue(uniStatisticsMap);

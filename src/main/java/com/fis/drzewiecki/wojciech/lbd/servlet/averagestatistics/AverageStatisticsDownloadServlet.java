@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics.SurveysAverageStatistics;
-import com.fis.drzewiecki.wojciech.lbd.service.surveys.statistics.SurveysStatisticsService;
+import com.fis.drzewiecki.wojciech.lbd.service.surveys.statistics.SurveysAverageStatisticsService;
 import com.fis.drzewiecki.wojciech.lbd.servlet.commons.Constants;
 
 @WebServlet("average-statistics/download")
@@ -25,7 +25,7 @@ public class AverageStatisticsDownloadServlet extends HttpServlet{
 	private ServletContext context;
 	
 	@Inject
-	private SurveysStatisticsService surveysStatisticsService;
+	private SurveysAverageStatisticsService surveysStatisticsService;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,11 +64,11 @@ public class AverageStatisticsDownloadServlet extends HttpServlet{
 		for(Map.Entry<String, SurveysAverageStatistics> e : uniStatistics.entrySet()) {
 			sb.append(e.getKey());
 			sb.append(',');
-			sb.append(e.getValue().getAverageQualityVote());
+			sb.append(e.getValue().getStatisticQualityVote());
 			sb.append(',');
-			sb.append(e.getValue().getAverageContactVote());
+			sb.append(e.getValue().getStatisticContactVote());
 			sb.append(',');
-			sb.append(e.getValue().getAverageInclusionVote());
+			sb.append(e.getValue().getStatisticInclusionVote());
 			sb.append(',');
 			sb.append(e.getValue().getOverallAverage());
 			sb.append('\n');

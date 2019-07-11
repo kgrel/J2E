@@ -1,52 +1,36 @@
 package com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics;
 
-import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
+// holds average statistics of surveys
+public class SurveysAverageStatistics extends SurveysStatistics {
 
-// Class that calculates average statistics of surveys passed in 'on the go'
-public class SurveysAverageStatistics implements Comparable<SurveysAverageStatistics> {
-	private Double averageQualityVote;
-	private Double averageContactVote;
-	private Double averageInclusionVote;
-	
-	private Integer surveysCount;
-	
-	public SurveysAverageStatistics() {
-		averageContactVote = 0D;
-		averageInclusionVote = 0D;
-		averageQualityVote = 0D;
-		
-		surveysCount = 0;
-	}
-
-	public Double getAverageQualityVote() {
-		return averageQualityVote;
-	}
-
-	public Double getAverageContactVote() {
-		return averageContactVote;
-	}
-
-	public Double getAverageInclusionVote() {
-		return averageInclusionVote;
-	}
-	
-	public Double getOverallAverage() {
-		return (averageContactVote + averageInclusionVote + averageQualityVote) / 3;
-	}
-
-	public void addSurvey(Survey s) {
-		// Calculate new average for previous average and new survey
-		averageContactVote = ((surveysCount * averageContactVote) + s.getContactVote())/(surveysCount + 1);
-		averageInclusionVote = ((surveysCount * averageInclusionVote) + s.getInclusionVote())/(surveysCount + 1);
-		averageQualityVote = ((surveysCount * averageQualityVote) + s.getQualityVote())/(surveysCount + 1);
-		
-		// new survey added
-		surveysCount++;
+	@Override
+	protected Double calculateStatisticQualityVote() {
+		return statisticQualityVote;
 	}
 
 	@Override
-	public int compareTo(SurveysAverageStatistics o) {
-		return -this.getOverallAverage().compareTo(o.getOverallAverage());
+	protected Double calculateStatisticContactVote() {
+		return statisticContactVote;
 	}
-	
+
+	@Override
+	protected Double calculateStatisticInclusionVote() {
+		return statisticInclusionVote;
+	}
+
+	@Override
+	protected void addQualityVote(Integer quality) {
+		statisticQualityVote = ((statisticQualityVote * surveysCount) + quality)/(surveysCount + 1);
+	}
+
+	@Override
+	protected void addContactVote(Integer contact) {
+		statisticContactVote = ((statisticContactVote * surveysCount) + contact)/(surveysCount + 1);
+	}
+
+	@Override
+	protected void addInclusionVote(Integer inclusion) {
+		statisticInclusionVote = ((statisticInclusionVote * surveysCount) + inclusion)/(surveysCount + 1);
+	}
+
 }

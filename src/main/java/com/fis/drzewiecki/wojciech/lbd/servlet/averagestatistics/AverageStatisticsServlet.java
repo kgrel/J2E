@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fis.drzewiecki.wojciech.lbd.model.survey.Survey;
 import com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics.SurveysAverageStatistics;
-import com.fis.drzewiecki.wojciech.lbd.service.surveys.statistics.SurveysStatisticsService;
+import com.fis.drzewiecki.wojciech.lbd.service.surveys.statistics.SurveysAverageStatisticsService;
 import com.fis.drzewiecki.wojciech.lbd.servlet.commons.Constants;
 
 @WebServlet("average-statistics")
@@ -24,7 +24,7 @@ public class AverageStatisticsServlet extends HttpServlet{
 	private ServletContext context;
 	
 	@Inject
-	private SurveysStatisticsService surveysStatisticsService;
+	private SurveysAverageStatisticsService surveysAverageStatisticsService;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,7 +34,7 @@ public class AverageStatisticsServlet extends HttpServlet{
 		
 		// get uni statistics for surveys in memory
 		Map<String, SurveysAverageStatistics> uniStatistics = 
-				surveysStatisticsService.
+				surveysAverageStatisticsService.
 				universityAverageStatistics(
 						(List<Survey>)context.getAttribute(Constants.listAttributeName)
 						);
@@ -57,15 +57,15 @@ public class AverageStatisticsServlet extends HttpServlet{
 			sb.append(entry.getKey());
 			sb.append(":<br>");
 			sb.append("Average quality vote: ");
-			sb.append(entry.getValue().getAverageQualityVote());
+			sb.append(entry.getValue().getStatisticQualityVote());
 			sb.append("<br>");
 			
 			sb.append("Average contact vote: ");
-			sb.append(entry.getValue().getAverageContactVote());
+			sb.append(entry.getValue().getStatisticContactVote());
 			sb.append("<br>");
 			
 			sb.append("Average inclusion vote: ");
-			sb.append(entry.getValue().getAverageInclusionVote());
+			sb.append(entry.getValue().getStatisticInclusionVote());
 			sb.append("<br>");
 			
 			sb.append("<br>");
