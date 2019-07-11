@@ -32,13 +32,15 @@ public class HelloServlet extends HttpServlet{
 		writer.write("Session id");
 		writer.write(" : ");
 		
-		// get session from request, don't create if doesn't exist
-		HttpSession session = req.getSession(false);
+		// get session from request, always create if doesn't exist for testing
+		HttpSession session = req.getSession();
 		if(session == null) {
 			writer.write("Session does not exist");
 		}
 		else {
 			writer.write(session.getId());
+			// for testing
+			session.invalidate();
 		}
 		writer.write('\n');
 		
