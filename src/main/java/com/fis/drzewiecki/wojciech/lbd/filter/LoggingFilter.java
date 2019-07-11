@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 // filter that executes at every request to the server
-@WebFilter(filterName = "Request",
+@WebFilter(filterName = "LoggingFilter",
 			urlPatterns= {"/*"})
-public class RequestFilter implements Filter {
+public class LoggingFilter implements Filter {
 	
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
