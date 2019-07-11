@@ -2,6 +2,9 @@ package com.fis.drzewiecki.wojciech.lbd.model.survey.surveystatistics;
 
 // holds average statistics of surveys
 public class SurveysAverageStatistics extends SurveysStatistics {
+	
+	public SurveysAverageStatistics() {
+	}
 
 	@Override
 	protected Double calculateStatisticQualityVote() {

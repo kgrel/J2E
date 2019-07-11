@@ -1,4 +1,4 @@
-package com.fis.drzewiecki.wojciech.lbd.servlet.averagestatistics;
+package com.fis.drzewiecki.wojciech.lbd.servlet.statistics;
 
 import java.io.IOException;
 import java.util.List;
